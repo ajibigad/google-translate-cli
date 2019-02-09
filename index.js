@@ -14,6 +14,11 @@ app.get('/translate', (req, res) => {
         });
 })
 
+app.get('/refresh', (req, res) => {
+    translator.closeBrowser()
+        .then(() => translator.bootBrowser().then(() => res.end()));
+})
+
 translator.bootBrowser()
     .then(() => app.listen(port, () => console.log(`app listening on port ${port}!`)),
         () => {
